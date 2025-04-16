@@ -69,7 +69,7 @@ def calculate_map_extent(coordinates, radius):
         "geometry":  f"{map_extent[0]},{map_extent[1]},{map_extent[2]},{map_extent[3]}",  # Longitude, Latitude
         "geometryFormat": "geojson",
         "geometryType": "esriGeometryEnvelope",
-        "sr": "2056",
+        "sr": "4326",
         "lang": "de",
         "layers": "all:ch.bafu.hydrogeologie-markierversuche",
         "returnGeometry": "true",
@@ -81,10 +81,30 @@ def calculate_map_extent(coordinates, radius):
         response.raise_for_status()  # Raise an exception for bad status codes
 
         data = response.json()
-        return data
-    except requests.exceptions.RequestException as e:
-        print(f"Error querying Geo Admin API: {e}")
-        return None
+        # Antworten des API als Dataframe speichern
+        if api_response:
+            results = []
+            for feature in api_response['results']:
+                result = {
+                    'x': feature["properties"]['x'],
+                    'y': feature["properties"]['y'],
+                    'ort': feature["properties"]['ort'],
+                    'datum': feature["properties"]['datum'],
+                    'milieu': feature["properties"]['milieu'],
+                    'marker': feature["properties"]['markierstoff'],
+                    'menge': feature["properties"]['menge_einheit'],
+                    'label' : feature["properties"]['label']
+                }
+                results.append(result)
+            else:
+                print("No results found.")
+        # Create a Pandas DataFrame
+        df = pd.DataFrame(results)
+        
+        # Create a Geodataframe
+        dfgeo = gpd.GeoDataFrame(df, geometry=gpd.points_from_xy(df.x, df.y),crs='EPSG:2056')
+return dfgeo
+
 
         
 
