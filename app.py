@@ -153,7 +153,7 @@ if gemeinde:
         # Add markers to the map
         for index, row in dfgeo.iterrows():
             folium.Marker(
-                location=[row.geometry.y, row.geometry.x],  # Latitude, Longitude
+                location=[row.geometry.x, row.geometry.y],  # Latitude, Longitude
                 popup=f"Ort: {row['ort']}<br>Datum: {row['datum']}<br>Milieu: {row['milieu']}<br>Marker: {row['marker']}<br>Menge: {row['menge']}",
                 tooltip=row['label'],
               ).add_to(m)
