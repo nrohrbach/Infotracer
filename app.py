@@ -64,28 +64,28 @@ def calculate_map_extent(coordinates, radius):
         map_extent[2] = easting + radius
         map_extent[3] = northing + radius
 
-    url = "https://api3.geo.admin.ch/rest/services/all/MapServer/identify"
-    params = {
-        "geometry":  f"{map_extent[0]},{map_extent[1]},{map_extent[2]},{map_extent[3]}",  # Longitude, Latitude
-        "geometryFormat": "geojson",
-        "geometryType": "esriGeometryEnvelope",
-        "sr": "2056",
-        "lang": "de",
-        "layers": "all:ch.bafu.hydrogeologie-markierversuche",
-        "returnGeometry": "true",
-        "tolerance": 0
-    }
-
-    try:
-        response = requests.get(url, params=params)
-        response.raise_for_status()  # Raise an exception for bad status codes
-
-        data = response.json()
-
-        
-        return dfgeo
-    except requests.exceptions.RequestException as e:
-        return None
+        url = "https://api3.geo.admin.ch/rest/services/all/MapServer/identify"
+        params = {
+            "geometry":  f"{map_extent[0]},{map_extent[1]},{map_extent[2]},{map_extent[3]}",  # Longitude, Latitude
+            "geometryFormat": "geojson",
+            "geometryType": "esriGeometryEnvelope",
+            "sr": "2056",
+            "lang": "de",
+            "layers": "all:ch.bafu.hydrogeologie-markierversuche",
+            "returnGeometry": "true",
+            "tolerance": 0
+        }
+    
+        try:
+            response = requests.get(url, params=params)
+            response.raise_for_status()  # Raise an exception for bad status codes
+    
+            data = response.json()
+    
+            
+            return dfgeo
+        except requests.exceptions.RequestException as e:
+            return None
 
 
         
