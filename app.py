@@ -135,18 +135,18 @@ def calculate_map_extent(coordinates, radius):
 
 # App
 # Streamlit app
-st.title("Luftqualität in deiner Gemeinde")
+st.title("Übersicht Markierversuche")
 st.markdown(
     """
-Dank der erfolgreichen Schweizer Luftreinhaltepolitik hat sich die Luftqualität in der Schweiz seit den 1990er Jahren deutlich verbessert.
+Im Rahmen von InfoTracer koordiniert, zentralisiert und archiviert das BAFU Informationen zu Markierversuchen im Grund- und Oberflächenwasser der Schweiz.
 
-Wie sieht die Luftqualität in deiner Gemeinde aus? Finde es heraus:
+Welche Versuche wurden in Ihrer Nähe gemacht?
 
 """
 )
 
 # Suchfeld für die Eingabe der Gemeinde
-gemeinde = st.text_input('Gib den Namen der Gemeinde ein:')
+gemeinde = st.text_input('Suchen Sie nach Gemeinde, Flurname oder Adresse:')
 
 # Hauptlogik
 data = []
@@ -154,10 +154,12 @@ if gemeinde:
     coordinatesOutput = get_coordinates(gemeinde)
 
     bbox = calculate_map_extent(coordinatesOutput[0:2],2000)
-    st.dataframe(bbox)
+
   
     # Zeige die Karte an
     st.session_state['m'] = create_map(coordinatesOutput[2:4],bbox)
-    st_folium(st.session_state['m'], width=700)    
+    st_folium(st.session_state['m'], width=700)
+
+    st.dataframe(bbox)
    
 
