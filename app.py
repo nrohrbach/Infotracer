@@ -150,7 +150,7 @@ gemeinde = st.text_input('Suchen Sie nach Gemeinde, Flurname oder Adresse:')
 
 # Suchfeld für die Eingabe der Gemeinde
 
-radius = st.text_input('Radius in m:')
+radius = st.number_input('Radius in m:')
 
 # Hauptlogik
 data = []
