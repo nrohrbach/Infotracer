@@ -16,8 +16,6 @@ def get_coordinates(gemeinde):
         response = requests.get(url)
         response.raise_for_status()  # Raise HTTPError for bad responses (4xx or 5xx)
         data = response.json()
-        x = data['results'][0]['attrs'].get('x')
-        y = data['results'][0]['attrs'].get('y')
         lat = data['results'][0]['attrs'].get('lat')
         lon = data['results'][0]['attrs'].get('lon')
         return y, x, lat, lon
@@ -39,6 +37,7 @@ def create_map(center,dataframe):
         popup=gemeinde,
         icon=folium.Icon(color='red')
     ).add_to(m)
+    
     # Add markers to the map
     for index, row in dataframe.iterrows():
         folium.Marker(
@@ -47,7 +46,6 @@ def create_map(center,dataframe):
             tooltip=row['label'],
             ).add_to(m)
 
-    
     return m        
                 
         
