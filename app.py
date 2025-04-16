@@ -25,7 +25,7 @@ def get_coordinates(gemeinde):
         print(f"Error fetching data: {e}")
         return y, x, lat, lon
         
-def create_map(center,dfgeo):
+def create_map(center,dataframe):
     m = folium.Map(location=center,
         zoom_start=12,
         control_scale=True,
@@ -40,7 +40,7 @@ def create_map(center,dfgeo):
         icon=folium.Icon(color='red')
     ).add_to(m)
     # Add markers to the map
-    for index, row in dfgeo.iterrows():
+    for index, row in dataframe.iterrows():
         folium.Marker(
             location=[row.geometry.y, row.geometry.x],  # Latitude, Longitude
             popup=f"Ort: {row['ort']}<br>Datum: {row['datum']}<br>Milieu: {row['milieu']}<br>Marker: {row['marker']}<br>Menge: {row['menge']}",
@@ -156,7 +156,7 @@ if gemeinde:
     st.dataframe(bbox)
   
     # Zeige die Karte an
-    st.session_state['m'] = create_map(coordinatesOutput[2:4],dfgeo)
+    st.session_state['m'] = create_map(coordinatesOutput[2:4],bbox)
     st_folium(st.session_state['m'], width=700)    
    
 
