@@ -144,7 +144,7 @@ if gemeinde:
     coordinatesOutput = get_coordinates(gemeinde)
 
     bbox = calculate_map_extent(coordinatesOutput[0:2],2000)
-    bbox
+    st.dataframe(bbox)
   
     # Zeige die Karte an
     st.session_state['m'] = create_map(coordinatesOutput[2:4]) 
