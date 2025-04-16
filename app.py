@@ -40,6 +40,32 @@ def create_map(center):
     ).add_to(m)
     
     return m
+    
+# Funktion welche Bounding Box um Punkt mit Radius berechnet
+def calculate_map_extent(coordinates, radius):
+    """Calculates the map extent for a given radius around coordinates.
+
+    Args:
+        coordinates: A list containing the longitude and latitude [longitude, latitude].
+        radius: The radius in meters.
+
+    Returns:
+        A list representing the map extent [min_x, min_y, max_x, max_y] in LV95 coordinates,
+        or None if an error occurs during coordinate transformation.
+    """
+    easting = coordinates[0]
+    northing = coordinates[1]
+
+
+    if coordinates:
+        map_extent = [0, 0, 0, 0]
+        map_extent[0] = easting - radius
+        map_extent[1] = northing - radius
+        map_extent[2] = easting + radius
+        map_extent[3] = northing + radius
+        return map_extent
+    else:
+        return None
 
 
 # App
@@ -61,6 +87,9 @@ gemeinde = st.text_input('Gib den Namen der Gemeinde ein:')
 data = []
 if gemeinde:
     coordinatesOutput = get_coordinates(gemeinde)
+
+    bbox = calculate_map_extent(coordinatesOutput[0:2],2000)
+    bbox
   
     # Zeige die Karte an
     st.session_state['m'] = create_map(coordinatesOutput[2:4]) 
