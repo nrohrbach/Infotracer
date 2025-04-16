@@ -18,6 +18,8 @@ def get_coordinates(gemeinde):
         data = response.json()
         lat = data['results'][0]['attrs'].get('lat')
         lon = data['results'][0]['attrs'].get('lon')
+        x = data['results'][0]['attrs'].get('x')
+        y = data['results'][0]['attrs'].get('y')
         return y, x, lat, lon
     except requests.exceptions.RequestException as e:
         print(f"Error fetching data: {e}")
@@ -97,8 +99,6 @@ def calculate_map_extent(coordinates, radius):
                 results = []
                 for feature in api_response['results']:
                     result = {
-                        'x': feature["properties"]['x'],
-                        'y': feature["properties"]['y'],
                         'ort': feature["properties"]['ort'],
                         'datum': feature["properties"]['datum'],
                         'milieu': feature["properties"]['milieu'],
