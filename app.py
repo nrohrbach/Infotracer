@@ -99,6 +99,8 @@ def calculate_map_extent(coordinates, radius):
                 results = []
                 for feature in api_response['results']:
                     result = {
+                        'lat': feature["properties"]['x'],
+                        'lon': feature["properties"]['y'],
                         'ort': feature["properties"]['ort'],
                         'datum': feature["properties"]['datum'],
                         'milieu': feature["properties"]['milieu'],
@@ -113,7 +115,7 @@ def calculate_map_extent(coordinates, radius):
             df = pd.DataFrame(results)
             
             # Create a Geodataframe
-            dfgeo = gpd.GeoDataFrame(df, geometry=gpd.points_from_xy(df.x, df.y),crs='EPSG:2056')
+            dfgeo = gpd.GeoDataFrame(df, geometry=gpd.points_from_xy(df.lat, df.lon),crs='EPSG:2056')
             
             # Convert the GeoDataFrame's CRS to WGS84 (latitude/longitude) for Folium
             dfgeo = dfgeo.to_crs(epsg=4326)
