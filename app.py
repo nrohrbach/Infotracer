@@ -63,5 +63,5 @@ if gemeinde:
     coordinatesOutput = get_coordinates(gemeinde)
   
     # Zeige die Karte an
-    st.session_state['m'] = create_map(coordinatesOutput[2:4],year) 
+    st.session_state['m'] = create_map(coordinatesOutput[2:4]) 
     st_folium(st.session_state['m'], width=700)
