@@ -105,6 +105,8 @@ def calculate_map_extent(coordinates, radius):
         dfgeo = gpd.GeoDataFrame(df, geometry=gpd.points_from_xy(df.x, df.y),crs='EPSG:2056')
         
         return dfgeo
+    else:
+        return None
 
 
         
