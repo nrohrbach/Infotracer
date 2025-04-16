@@ -23,7 +23,23 @@ def get_coordinates(gemeinde):
     except requests.exceptions.RequestException as e:
         print(f"Error fetching data: {e}")
         return y, x, lat, lon
-
+        
+def create_map(center):
+    m = folium.Map(location=center,
+        zoom_start=12,
+        control_scale=True,
+        tiles="https://wmts.geo.admin.ch/1.0.0/ch.swisstopo.pixelkarte-farbe/default/current/3857/{z}/{x}/{y}.jpeg",
+        attr='Map data: &copy; <a href="https://www.swisstopo.ch" target="_blank" rel="noopener noreferrer">swisstopo</a>;<a href="https://www.bafu.admin.ch/" target="_blank" rel="noopener noreferrer">BAFU</a>'
+    )
+    
+    # Punkt bei der center-Position hinzufügen
+    folium.Marker(
+        location=center,
+        popup=gemeinde,
+        icon=folium.Icon(color='red')
+    ).add_to(m)
+    
+    return m
 
 
 # App
