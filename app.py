@@ -46,6 +46,7 @@ def create_map(center,dataframe):
             location=[row.geometry.y, row.geometry.x],  # Latitude, Longitude
             popup=f"Ort: {row['ort']}<br>Datum: {row['datum']}<br>Milieu: {row['milieu']}<br>Marker: {row['marker']}<br>Menge: {row['menge']}",
             tooltip=row['label'],
+            icon=folium.Icon(color='blue')
             ).add_to(m)
 
     return m        
