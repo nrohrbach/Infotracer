@@ -39,8 +39,20 @@ def create_map(center):
         popup=gemeinde,
         icon=folium.Icon(color='red')
     ).add_to(m)
-    
-    return m
+
+    if api_response:
+        # Add markers to the map
+        for index, row in dfgeo.iterrows():
+            folium.Marker(
+                location=[row.geometry.y, row.geometry.x],  # Latitude, Longitude
+                popup=f"Ort: {row['ort']}<br>Datum: {row['datum']}<br>Milieu: {row['milieu']}<br>Marker: {row['marker']}<br>Menge: {row['menge']}",
+                tooltip=row['label'],
+                ).add_to(m)
+        
+        return m        
+                
+        
+
     
 # Funktion welche Bounding Box um Punkt mit Radius berechnet
 def calculate_map_extent(coordinates, radius):
@@ -105,6 +117,9 @@ def calculate_map_extent(coordinates, radius):
             
             # Create a Geodataframe
             dfgeo = gpd.GeoDataFrame(df, geometry=gpd.points_from_xy(df.x, df.y),crs='EPSG:2056')
+            
+            # Convert the GeoDataFrame's CRS to WGS84 (latitude/longitude) for Folium
+            dfgeo = dfgeo.to_crs(epsg=4326)
     
             
             return dfgeo
