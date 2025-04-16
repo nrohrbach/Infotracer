@@ -80,7 +80,7 @@ def calculate_map_extent(coordinates, radius):
             response = requests.get(url, params=params)
             response.raise_for_status()  # Raise an exception for bad status codes
     
-            data = response.json()
+            api_response = response.json()
 
             # Antworten des API als Dataframe speichern
             if api_response:
