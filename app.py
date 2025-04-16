@@ -69,7 +69,7 @@ def calculate_map_extent(coordinates, radius):
         "geometry":  f"{map_extent[0]},{map_extent[1]},{map_extent[2]},{map_extent[3]}",  # Longitude, Latitude
         "geometryFormat": "geojson",
         "geometryType": "esriGeometryEnvelope",
-        "sr": "4326",
+        "sr": "2056",
         "lang": "de",
         "layers": "all:ch.bafu.hydrogeologie-markierversuche",
         "returnGeometry": "true",
