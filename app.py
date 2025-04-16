@@ -63,9 +63,33 @@ def calculate_map_extent(coordinates, radius):
         map_extent[1] = northing - radius
         map_extent[2] = easting + radius
         map_extent[3] = northing + radius
-        return map_extent
-    else:
+
+    url = "https://api3.geo.admin.ch/rest/services/all/MapServer/identify"
+    params = {
+        "geometry":  f"{mapExtent[0]},{mapExtent[1]},{ mapExtent[2]},{mapExtent[3]}",  # Longitude, Latitude
+        "geometryFormat": "geojson",
+        "geometryType": "esriGeometryEnvelope",
+        "sr": "2056",
+        "lang": "de",
+        "layers": "all:ch.bafu.hydrogeologie-markierversuche",
+        "returnGeometry": "true",
+        "tolerance": 0
+    }
+
+    try:
+        response = requests.get(url, params=params)
+        response.raise_for_status()  # Raise an exception for bad status codes
+
+        data = response.json()
+        return data
+    except requests.exceptions.RequestException as e:
+        print(f"Error querying Geo Admin API: {e}")
         return None
+
+        
+
+
+
 
 
 # App
