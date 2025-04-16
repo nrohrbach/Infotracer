@@ -38,17 +38,7 @@ def create_map(center):
         location=center,
         popup=gemeinde,
         icon=folium.Icon(color='red')
-    ).add_to(m)
-
-    if api_response:
-        # Add markers to the map
-        for index, row in dfgeo.iterrows():
-            folium.Marker(
-                location=[row.geometry.y, row.geometry.x],  # Latitude, Longitude
-                popup=f"Ort: {row['ort']}<br>Datum: {row['datum']}<br>Milieu: {row['milieu']}<br>Marker: {row['marker']}<br>Menge: {row['menge']}",
-                tooltip=row['label'],
-                ).add_to(m)
-        
+    ).add_to(m)    
         return m        
                 
         
