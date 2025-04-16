@@ -38,8 +38,8 @@ def create_map(center):
         location=center,
         popup=gemeinde,
         icon=folium.Icon(color='red')
-    ).add_to(m)    
-        return m        
+    ).add_to(m)
+    return m        
                 
         
 
