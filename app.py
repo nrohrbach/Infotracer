@@ -6,6 +6,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import folium
 from streamlit_folium import st_folium
+import geopandas as gpd
 
 # Funktion zur Abfrage der Koordinaten (Beispiel)
 # Funktion zur Abfrage der Koordinaten (Beispiel)
