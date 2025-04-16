@@ -148,7 +148,7 @@ if gemeinde:
   
     # Zeige die Karte an
     st.session_state['m'] = create_map(coordinatesOutput[2:4])
-    if bbox:
+    if st.dataframe(bbox):
         
         # Add markers to the map
         for index, row in dfgeo.iterrows():
