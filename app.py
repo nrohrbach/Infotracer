@@ -148,12 +148,16 @@ Welche Versuche wurden in Ihrer Nähe gemacht?
 # Suchfeld für die Eingabe der Gemeinde
 gemeinde = st.text_input('Suchen Sie nach Gemeinde, Flurname oder Adresse:')
 
+# Suchfeld für die Eingabe der Gemeinde
+
+radius = st.text_input('Radius in m:')
+
 # Hauptlogik
 data = []
-if gemeinde:
+if gemeinde and radius:
     coordinatesOutput = get_coordinates(gemeinde)
 
-    bbox = calculate_map_extent(coordinatesOutput[0:2],2000)
+    bbox = calculate_map_extent(coordinatesOutput[0:2],radius)
 
   
     # Zeige die Karte an
