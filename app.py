@@ -66,7 +66,7 @@ def calculate_map_extent(coordinates, radius):
 
     url = "https://api3.geo.admin.ch/rest/services/all/MapServer/identify"
     params = {
-        "geometry":  f"{mapExtent[0]},{mapExtent[1]},{ mapExtent[2]},{mapExtent[3]}",  # Longitude, Latitude
+        "geometry":  f"{map_extent[0]},{map_extent[1]},{map_extent[2]},{map_extent[3]}",  # Longitude, Latitude
         "geometryFormat": "geojson",
         "geometryType": "esriGeometryEnvelope",
         "sr": "2056",
